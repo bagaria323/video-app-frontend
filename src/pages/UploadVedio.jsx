@@ -1,6 +1,6 @@
 // src/pages/UploadVideo.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function UploadVideo() {
@@ -37,7 +37,7 @@ function UploadVideo() {
       await api.post("/videos", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      navigate("/");
+      navigate("/Dashboard");
     } catch (err) {
       const serverError = err.response?.data?.message || "Upload failed.";
       setError(serverError);

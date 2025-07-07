@@ -27,7 +27,7 @@ function Login() {
       localStorage.setItem("accessToken", response.data.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
       
-      navigate("/");
+      navigate("/Dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed.");
     } finally {

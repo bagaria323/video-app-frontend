@@ -9,14 +9,14 @@ function Dashboard() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // --- LOGIC (No changes needed here) ---
+ 
   const handleLogout = async () => {
     try { await api.post('/users/logout'); }
     catch (err) { console.error("Logout API call failed.", err); }
     finally {
       localStorage.removeItem('accessToken');
       localStorage.removeItem("user");
-      navigate('/login');
+      navigate('/');
     }
   };
 
@@ -34,7 +34,7 @@ function Dashboard() {
     fetchVideos();
   }, []);
 
-  // --- UI / JSX ---
+
   return (
     <div className="min-h-screen bg-slate-50 text-gray-800">
       <header className="bg-white shadow-sm sticky top-0 z-10">

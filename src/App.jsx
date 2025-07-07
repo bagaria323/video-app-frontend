@@ -11,15 +11,16 @@ function App() {
   return (
     <Routes>
       {/* main pages */}
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/upload-video" element=
-      {
-        <ProtectedRoute>
-          <UploadVideo />
-        </ProtectedRoute>
-      }
+      <Route
+        path="/upload-video"
+        element={
+          <ProtectedRoute>
+            <UploadVideo />
+          </ProtectedRoute>
+        }
       />
       {/* The page for a single video */}
       <Route path="/videos/:videoId" element={<VideoPage />} />
