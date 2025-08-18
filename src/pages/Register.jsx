@@ -38,7 +38,7 @@ function Register() {
       await api.post("/users/register", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed.");
       console.error("Registration failed:", err);
