@@ -1,18 +1,16 @@
 // src/pages/UploadVideo.jsx
 import React, { useState } from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function UploadVideo() {
   const navigate = useNavigate();
 
-  // State for the form fields
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [videoFile, setVideoFile] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
 
-  // State for UI feedback
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
@@ -47,20 +45,46 @@ function UploadVideo() {
   };
 
   return (
-    // Main container: full screen, dark background, centered
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
-      {/* Form card: Wider for more fields, dark bg, padding, rounded */}
-      <div className="w-full max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center text-white mb-6">
-          Upload a New Video
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 to-gray-200 p-2 sm:p-3 lg:p-4 relative">
+      <div className="absolute top-0 left-0 right-0 p-3 flex justify-between items-center z-10">
+        <div className="flex items-center space-x-2">
+          <svg
+            className="w-7 h-7 text-blue-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+            ></path>
+          </svg>
+          <span className="font-semibold text-gray-800 text-lg">
+            Video Tube
+          </span>
+        </div>
+        <Link
+          to="/Dashboard"
+          className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200"
+        >
+          Dashboard
+        </Link>
+      </div>
+
+      <div className="bg-white p-6 sm:p-8 md:p-10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] w-full max-w-lg">
+        <h1 className="text-3xl font-bold mb-6 text-center relative">
+          Upload a <span className="font-extrabold text-gray-800">New</span>{" "}
+          <span className="text-blue-500">Video</span>
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title Input */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-300"
+              className="block text-gray-700 text-sm font-medium mb-1"
             >
               Title
             </label>
@@ -69,16 +93,17 @@ function UploadVideo() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
+              className="bg-gray-50 rounded-lg border-none w-full py-3 px-4 text-gray-800 
+                         placeholder-gray-400 focus:outline-none focus:ring-2 
+                         focus:ring-blue-300 focus:ring-opacity-50 transition duration-200"
               required
             />
           </div>
 
-          {/* Description Textarea */}
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-300"
+              className="block text-gray-700 text-sm font-medium mb-1"
             >
               Description
             </label>
@@ -87,51 +112,77 @@ function UploadVideo() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows="3"
-              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
+              className="bg-gray-50 rounded-lg border-none w-full py-3 px-4 text-gray-800 
+                         placeholder-gray-400 focus:outline-none focus:ring-2 
+                         focus:ring-blue-300 focus:ring-opacity-50 transition duration-200"
             />
           </div>
 
-          {/* Video File Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-300">
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Video File
             </label>
-            <div className="mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md">
-              <input
-                type="file"
-                accept="video/*"
-                onChange={(e) => setVideoFile(e.target.files[0])}
-                className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-                required
-              />
-            </div>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={(e) => setVideoFile(e.target.files[0])}
+              className="block w-full text-sm text-gray-500
+                         file:mr-4 file:py-2 file:px-4
+                         file:rounded-lg file:border-0
+                         file:text-sm file:font-semibold
+                         file:bg-blue-50 file:text-blue-700
+                         hover:file:bg-blue-100 hover:file:cursor-pointer transition duration-200"
+              required
+            />
           </div>
 
-          {/* Thumbnail File Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-300">
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Thumbnail Image (Optional)
             </label>
-            <div className="mt-1 p-2 bg-gray-700 border border-gray-600 rounded-md">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setThumbnail(e.target.files[0])}
-                className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-              />
-            </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setThumbnail(e.target.files[0])}
+              className="block w-full text-sm text-gray-500
+                         file:mr-4 file:py-2 file:px-4
+                         file:rounded-lg file:border-0
+                         file:text-sm file:font-semibold
+                         file:bg-blue-50 file:text-blue-700
+                         hover:file:bg-blue-100 hover:file:cursor-pointer transition duration-200"
+            />
           </div>
 
-          {error && <p className="text-sm text-center text-red-400">{error}</p>}
+          {error && (
+            <p className="bg-red-100 text-red-700 text-sm text-center py-2 px-4 rounded-md mt-3">
+              {error}
+            </p>
+          )}
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
               disabled={uploading}
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white font-semibold disabled:bg-blue-400 disabled:cursor-not-allowed"
+              className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg 
+                         focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 
+                         flex items-center justify-center space-x-2 transition duration-200 
+                         transform hover:-translate-y-0.5 hover:shadow-lg disabled:bg-gray-600 disabled:shadow-none"
             >
-              {uploading ? "Uploading..." : "Publish Video"}
+              <span>{uploading ? "Uploading..." : "Publish Video"}</span>
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                ></path>
+              </svg>
             </button>
           </div>
         </form>
