@@ -129,7 +129,7 @@ function Dashboard() {
                           {video.title}
                         </h3>
                         <p className="text-sm text-gray-600">
-                          by {video.owner?.username || "Unknown"}
+                           {video.owner?.username || "Unknown"}
                         </p>
                       </div>
                     </div>
